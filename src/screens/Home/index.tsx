@@ -1,4 +1,5 @@
-import DailyAttendaceData from "../../shared-ui/Charts/DailyActivityData/index";
+import React from "react";
+import DailyAttendaceData from "../../shared-ui/Charts/DailyActivityData";
 import { StyledStack } from "../../shared-ui/StyledCommonComponent";
 import {
   Stack,
@@ -9,16 +10,14 @@ import {
   MenuItem,
   Select,
 } from "@mui/material";
-import React, { useEffect } from "react";
 import SalesAnalitics from "../dashboard/salesAnalitics";
 import { Heading } from "../styledComponent/styled";
-import {
-  gridSpacingLarge,
-} from "../../services/general/constants";
+import { gridSpacingLarge } from "../../services/general/constants";
 import OrderStatusTiles from "../dashboard/orderStatusTiles";
-import NewPeofitTile from "../dashboard/newProfitTile";
+import NewProfitTile from "../dashboard/newProfitTile";
 import Orders from "../dashboard/Orders";
 import CustomerFeedbackTile from "../dashboard/customerFeedback";
+import { useInnerWidth } from "../../shared-ui/customHooks/getStackWidth";
 
 const GraphHeading = styled(Box)(() => ({
   display: "flex",
@@ -26,14 +25,9 @@ const GraphHeading = styled(Box)(() => ({
   alignItems: "center",
   padding: "8px 10px",
 }));
+
 const Home = () => {
-  let stackWidth:string|number = "100%";
-  if(window.innerWidth<900){
-     stackWidth = window.innerWidth-95;
-  }
-  useEffect(()=>{
-    stackWidth = window.innerWidth-95;
-  },[])
+  const stackWidth = useInnerWidth();
 
   const attendanceData = [
     { date: "01", value: 19 },
@@ -62,12 +56,8 @@ const Home = () => {
     { date: "24", value: 12 },
     { date: "25", value: 3 },
   ];
-  interface TilesProps {
-    title: string;
-    expenditure: string;
-    time: string;
-  }
-  const tilesData: TilesProps[] = [
+
+  const tilesData = [
     {
       title: "Total Order",
       expenditure: "75",
@@ -114,7 +104,9 @@ const Home = () => {
 
           <Grid container spacing={gridSpacingLarge} mt={0}>
             <Grid item xs={12} lg={12}>
-              <StyledStack sx={{ padding: "15px", maxHeight: "250px",width:stackWidth }}>
+              <StyledStack
+                sx={{ padding: "15px", maxHeight: "250px", width: stackWidth }}
+              >
                 <GraphHeading>
                   <Typography>Activity</Typography>
                   <Select
@@ -122,9 +114,9 @@ const Home = () => {
                     placeholder="Select"
                     sx={{
                       width: "100px",
-                      fontSize: "0.875rem", // Adjust the font size
+                      fontSize: "0.875rem",
                       ".MuiSelect-select": {
-                        padding: "4px 8px", // Adjust the padding
+                        padding: "4px 8px",
                       },
                     }}
                     value="Weekly"
@@ -133,7 +125,7 @@ const Home = () => {
                       <MenuItem
                         key={item}
                         value={item}
-                        sx={{ fontSize: "0.875rem", padding: "4px 8px" }} // Adjust font size and padding for MenuItem
+                        sx={{ fontSize: "0.875rem", padding: "4px 8px" }}
                       >
                         {item}
                       </MenuItem>
@@ -144,7 +136,7 @@ const Home = () => {
               </StyledStack>
             </Grid>
             <Grid item xs={12} lg={12}>
-              <StyledStack p={2} sx={{width:stackWidth}}>
+              <StyledStack p={2} sx={{ width: stackWidth }}>
                 <Orders />
               </StyledStack>
             </Grid>
@@ -152,7 +144,7 @@ const Home = () => {
         </Grid>
 
         <Grid item xs={12} md={6} lg={4}>
-          <NewPeofitTile
+          <NewProfitTile
             iconsIndex={0}
             title={"New Profit"}
             expenditure={6545}
@@ -160,7 +152,7 @@ const Home = () => {
             time={"3%"}
           />
           <SalesAnalitics />
-          <CustomerFeedbackTile/>
+          <CustomerFeedbackTile />
         </Grid>
       </Grid>
     </Stack>
