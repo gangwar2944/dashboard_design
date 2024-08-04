@@ -11,7 +11,7 @@ export const BASE_URL = process.env.PUBLIC_URL
   : "http://localhost:3009";
 
 export const routes = {
-  home: "/",
+  home: "/dashboard_design",
 };
 export const apiPath = {
   getNavigationMenu: "/mocks/main-sidebar.json",
