@@ -5,6 +5,7 @@ import LeftDrawer from "./LeftDrawer";
 import SideBar from "./SideBar";
 import Mainlayout from "./Mainlayout";
 import { drawerWidth } from "../../services/general/constants";
+import { useInnerWidth } from "../customHooks/getStackWidth";
 
 interface DashboardContainerProps {
   children: JSX.Element | ReactNode;
@@ -22,11 +23,12 @@ function DashboardContainer({
     }
     setRemainingDrawerWidth((prev)=>{return prev===drawerWidth?70:300})
   };
+  const innerWidth= useInnerWidth();
   useEffect(()=>{
     if(window.innerWidth<900){
       setRemainingDrawerWidth(70);
     }
-  },[])
+  },[innerWidth])
   return (
     <>
       <Header drawerWidth={remainingDrawerWidth} open={true}/>
