@@ -17,7 +17,7 @@ export const sideBarData: SideBarData[] = [
     {
         id: 1,
         name: "Home",
-        path: "/",
+        path: "/dashboard_design",
         getIcon: () => <HomeOutlinedIcon fontSize='small'/>
     },
     {
